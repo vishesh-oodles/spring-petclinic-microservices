@@ -20,7 +20,7 @@ spec:
                   number: 8761
 
           # ✅ /admin → direct passthrough, no rewrite
-          - path: /admin
+          - path: /admin()(.*)
             pathType: Prefix
             backend:
               service:
