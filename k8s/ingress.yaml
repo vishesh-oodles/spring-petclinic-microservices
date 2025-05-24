@@ -1,50 +1,17 @@
-# apiVersion: networking.k8s.io/v1
-# kind: Ingress
-# metadata:
-#   name: petclinic-ingress
-#   annotations:
-#     nginx.ingress.kubernetes.io/rewrite-target: /
-# spec:
-#   ingressClassName: nginx
-#   rules:
-#     - http:
-#         paths:
-#           - path: /eureka
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: discovery-server
-#                 port:
-#                   number: 8761
-
-#           - path: /admin
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: admin-server
-#                 port:
-#                   number: 9091
-
-#           - path: /
-#             pathType: Prefix
-#             backend:
-#               service:
-#                 name: api-gateway
-#                 port:
-#                   number: 8080
-
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: petclinic-ingress
   annotations:
     nginx.ingress.kubernetes.io/use-regex: "true"
+    # Only apply rewrite to /eureka, not to /admin or /
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
+          # ✅ /eureka → needs rewrite
           - path: /eureka(/|$)(.*)
             pathType: ImplementationSpecific
             backend:
@@ -53,14 +20,16 @@ spec:
                 port:
                   number: 8761
 
-          - path: /admin(/|$)(.*)
-            pathType: ImplementationSpecific
+          # ✅ /admin → direct passthrough, no rewrite
+          - path: /admin
+            pathType: Prefix
             backend:
               service:
                 name: admin-server
                 port:
                   number: 9091
 
+          # ✅ / → API gateway (frontend)
           - path: /()(.*)
             pathType: ImplementationSpecific
             backend:
@@ -68,4 +37,3 @@ spec:
                 name: api-gateway
                 port:
                   number: 8080
-
