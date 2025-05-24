@@ -8,6 +8,7 @@ spec:
   - http:
       paths:
       - path: /eureka
+        pathType: Prefix
         backend:
           service:
             name: discovery-server
