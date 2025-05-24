@@ -13,7 +13,7 @@ spec:
           service:
             name: admin-server
             port:
-              number: 8080
+              number: 9091
               
       - path: /eureka
         pathType: Prefix
