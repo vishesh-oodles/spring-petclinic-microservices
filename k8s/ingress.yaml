@@ -24,18 +24,3 @@ spec:
               number: 8761
 
 
-          # - path: /zipkin
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: tracing-server
-          #       port:
-          #         number: 9411
-
-          # - path: /grafana
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: grafana-server
-          #       port:
-          #         number: 3000
