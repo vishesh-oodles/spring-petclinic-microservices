@@ -7,21 +7,22 @@ spec:
   rules:
   - http:
       paths:
+      - path: /admin
+        pathType: Prefix
+        backend:
+          service:
+            name: admin-server
+            port:
+              number: 8080
+              
       - path: /eureka
         pathType: Prefix
         backend:
           service:
-            name: discovery-server
+            name: eureka-server
             port:
               number: 8761
 
-          # - path: /
-          #   pathType: Prefix
-          #   backend:
-          #     service:
-          #       name: api-gateway
-          #       port:
-          #         number: 8080
 
           # - path: /zipkin
           #   pathType: Prefix
