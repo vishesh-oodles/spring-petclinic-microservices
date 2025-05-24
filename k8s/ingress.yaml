@@ -19,7 +19,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: eureka-server
+            name: discovery-server
             port:
               number: 8761
 
