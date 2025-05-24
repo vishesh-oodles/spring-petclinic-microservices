@@ -1,48 +1,42 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: springboot-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   ingressClassName: nginx
   rules:
-    - http:
-        paths:
-          - path: /admin
-            pathType: Prefix
-            backend:
-              service:
-                name: admin-server
-                port:
-                  number: 9091
+  - http:
+      paths:
+      - path: /eureka(/|$)(.*)
+        pathType: ImplementationSpecific
+        backend:
+          service:
+            name: discovery-server
+            port:
+              number: 8761
 
-          - path: /eureka
-            pathType: Prefix
-            backend:
-              service:
-                name: discovery-server
-                port:
-                  number: 8761
+          # - path: /
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: api-gateway
+          #       port:
+          #         number: 8080
 
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: api-gateway
-                port:
-                  number: 8080
+          # - path: /zipkin
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: tracing-server
+          #       port:
+          #         number: 9411
 
-          - path: /zipkin
-            pathType: Prefix
-            backend:
-              service:
-                name: tracing-server
-                port:
-                  number: 9411
-
-          - path: /grafana
-            pathType: Prefix
-            backend:
-              service:
-                name: grafana-server
-                port:
-                  number: 3000
+          # - path: /grafana
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: grafana-server
+          #       port:
+          #         number: 3000
