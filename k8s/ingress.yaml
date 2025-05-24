@@ -12,8 +12,8 @@ spec:
     - http:
         paths:
           # ✅ /eureka → needs rewrite
-          - path: /eureka(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /eureka
+            pathType: Prefix
             backend:
               service:
                 name: discovery-server
