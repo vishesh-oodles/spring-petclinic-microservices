@@ -20,10 +20,16 @@ spec:
         ports:
         - containerPort: 9411
         env:
-        - name: CONFIG_SERVER_URL
-          value: http://config-server:8888
+        - name: SPRING_APPLICATION_NAME
+          value: tracing-server 
         - name: SPRING_PROFILES_ACTIVE
-          value: docker
+          value: docker      
+        - name: EUREKA_CLIENT_SERVICEURL_DEFAULTZONE
+          value: http://discovery-server:8761/eureka/
+        - name: MANAGEMENT_ENDPOINTS_WEB_EXPOSURE_INCLUDE
+          value: "*"          
+        - name: SERVER_PORT
+          value: "9411"
         
 ---
 apiVersion: v1
