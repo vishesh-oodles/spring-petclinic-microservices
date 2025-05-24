@@ -9,13 +9,13 @@ spec:
   rules:
     - http:
         paths:
-          - path: /
+          - path: /eureka
             pathType: Prefix
             backend:
               service:
-                name: api-gateway
+                name: discovery-server
                 port:
-                  number: 8080
+                  number: 8761
 
           - path: /admin
             pathType: Prefix
@@ -25,10 +25,10 @@ spec:
                 port:
                   number: 9091
 
-          - path: /eureka
+          - path: /
             pathType: Prefix
             backend:
               service:
-                name: discovery-server
+                name: api-gateway
                 port:
-                  number: 8761
+                  number: 8080
