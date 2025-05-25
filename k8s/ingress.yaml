@@ -53,7 +53,7 @@ spec:
     - http:
         paths:
           - path: /tracing(/|$)(.*)
-            pathType: Prefix
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: tracing-server
