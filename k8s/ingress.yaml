@@ -52,7 +52,7 @@ spec:
   rules:
     - http:
         paths:
-          - path: /tracing
+          - path: /zipkin
             pathType: Prefix
             backend:
               service:
