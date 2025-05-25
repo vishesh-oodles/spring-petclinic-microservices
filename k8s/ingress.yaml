@@ -16,14 +16,6 @@ spec:
                 port:
                   number: 8761
 
-          - path: /admin
-            pathType: Prefix
-            backend:
-              service:
-                name: admin-server
-                port:
-                  number: 9091
-
           - path: /grafana
             pathType: Prefix
             backend:
@@ -57,4 +49,24 @@ spec:
                 name: tracing-server
                 port:
                   number: 9411
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: admin-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - http:
+        paths:
+          - path: /admin(/|$)(.*)
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: admin-server
+                port:
+                  number: 9091
+
 
