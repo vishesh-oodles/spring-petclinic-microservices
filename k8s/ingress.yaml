@@ -3,13 +3,12 @@ kind: Ingress
 metadata:
   name: petclinic-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /eureka(/|$)(.*)
+          - path: /eureka
             pathType: Prefix
             backend:
               service:
@@ -18,7 +17,7 @@ spec:
                   number: 8761
 
           # Admin server configuration with proper path handling
-          - path: /admin(/|$)(.*)
+          - path: /admin
             pathType: Prefix
             backend:
               service:
