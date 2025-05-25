@@ -15,3 +15,11 @@ spec:
                 name: discovery-server
                 port:
                   number: 8761
+
+          - path: /admin
+            pathType: Prefix
+            backend:
+              service:
+                name: admin-server
+                port:
+                  number: 9091
