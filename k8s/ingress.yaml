@@ -32,14 +32,6 @@ spec:
                 port:
                   number: 3000
 
-          - path: /tracing
-            pathType: Prefix
-            backend:
-              service:
-                name: tracing-server
-                port:
-                  number: 9411
-
           - path: /
             pathType: Prefix
             backend:
@@ -47,3 +39,23 @@ spec:
                 name: api-gateway
                 port:
                   number: 8080
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: tracing-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - http:
+        paths:
+          - path: /tracing(/|$)(.*)
+            pathType: Prefix
+            backend:
+              service:
+                name: tracing-server
+                port:
+                  number: 9411
