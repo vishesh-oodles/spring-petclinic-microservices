@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: petclinic-ingress
-  annotations:
+  annotations: {}
 spec:
   ingressClassName: nginx
   rules:
@@ -32,18 +32,18 @@ spec:
                 port:
                   number: 3000
 
-           - path: /tracing
-             pathType: Prefix
-             backend:
-               service:
-                 name: tracing-server
-                 port:
-                   number: 9411
+          - path: /tracing
+            pathType: Prefix
+            backend:
+              service:
+                name: tracing-server
+                port:
+                  number: 9411
 
-            - path: /
-              pathType: Prefix
-              backend:
-                service:
-                  name: api-gateway
-                  port:
-                    number: 8080
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: api-gateway
+                port:
+                  number: 8080
