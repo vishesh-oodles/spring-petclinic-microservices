@@ -24,7 +24,7 @@ spec:
                 port:
                   number: 9091
 
-          - path: /grafana
+          - path: /grafana()(.*)
             pathType: Prefix
             backend:
               service:
