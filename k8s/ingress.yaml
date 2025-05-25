@@ -46,14 +46,13 @@ kind: Ingress
 metadata:
   name: petclinic-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /zipkin(/|$)(.*)
-            pathType: ImplementationSpecific
+          - path: /zipkin
+            pathType: Prefix
             backend:
               service:
                 name: tracing-server
