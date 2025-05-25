@@ -3,32 +3,16 @@ kind: Ingress
 metadata:
   name: petclinic-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /eureka(/|$)(.*)
+          - path: /eureka
             pathType: Prefix
             backend:
               service:
                 name: discovery-server
                 port:
                   number: 8761
-
-          - path: /admin(/|$)(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: admin-server
-                port:
-                  number: 9091
-
-          - path: /(.*)
-            pathType: Prefix
-            backend:
-              service:
-                name: api-gateway
-                port:
-                  number: 8080
