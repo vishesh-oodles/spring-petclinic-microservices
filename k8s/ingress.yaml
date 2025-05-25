@@ -44,8 +44,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: petclinic-ingress
-  annotations:
+  name: tracing-ingress
 spec:
   ingressClassName: nginx
   rules:
