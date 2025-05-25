@@ -44,18 +44,19 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: tracing-ingress
+  name: petclinic-ingress
   annotations:
-    nginx.ingress.kubernetes.io/rewrite-target: /
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /zipkin
-            pathType: Prefix
+          - path: /zipkin(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: tracing-server
                 port:
                   number: 9411
+
