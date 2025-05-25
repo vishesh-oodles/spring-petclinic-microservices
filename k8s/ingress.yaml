@@ -32,6 +32,15 @@ spec:
                 port:
                   number: 3000
 
+           - path: /tracing
+            pathType: Prefix
+            backend:
+              service:
+                name: tracing-server
+                port:
+                  number: 9411
+            
+
           - path: /
             pathType: Prefix
             backend:
