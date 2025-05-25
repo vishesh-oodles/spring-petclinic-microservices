@@ -55,17 +55,20 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: admin-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:
   ingressClassName: nginx
   rules:
     - http:
         paths:
-          - path: /admin
-            pathType: Prefix
+          - path: /admin(/|$)(.*)
+            pathType: ImplementationSpecific
             backend:
               service:
                 name: admin-server
                 port:
                   number: 9091
+
 
 
