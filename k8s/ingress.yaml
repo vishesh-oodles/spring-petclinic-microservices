@@ -87,7 +87,7 @@ spec:
   - http:
       paths:
       - path: /eureka(/|$)(.*)
-        pathType: Prefix
+        pathType: ImplementationSpecific
         backend:
           service:
             name: discovery-server
