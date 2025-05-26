@@ -8,13 +8,13 @@ spec:
   rules:
     - http:
         paths:
-          - path: /eureka
-            pathType: Prefix
-            backend:
-              service:
-                name: discovery-server
-                port:
-                  number: 8761
+          # - path: /eureka
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: discovery-server
+          #       port:
+          #         number: 8761
 
           # - path: /grafana
           #   pathType: Prefix
@@ -67,6 +67,26 @@ spec:
                 name: admin-server
                 port:
                   number: 9091
+
+---
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: eureka-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /eureka-service/$2
+spec:
+  ingressClassName: nginx
+  rules:
+  - http:
+      paths:
+      - path: /eureka(/|$)(.*)
+        backend:
+          service:
+            name: eureka-server
+            port: 
+              number: 8761
 
 
 
