@@ -82,6 +82,7 @@ spec:
   - http:
       paths:
       - path: /eureka(/|$)(.*)
+        pathType: ImplementationSpecific
         backend:
           service:
             name: eureka-server
