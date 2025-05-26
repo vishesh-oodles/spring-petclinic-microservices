@@ -76,6 +76,10 @@ metadata:
   name: eureka-ingress
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /eureka-service/$2
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      location ~* ^/eureka-service/(css|js|images|webjars)/ {
+        proxy_pass http://eureka-server:8761/eureka-service/$1/;
+      }
 spec:
   ingressClassName: nginx
   rules:
