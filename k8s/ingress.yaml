@@ -16,13 +16,13 @@ spec:
                 port:
                   number: 8761
 
-          - path: /grafana
-            pathType: Prefix
-            backend:
-              service:
-                name: grafana-server
-                port:
-                  number: 3000
+          # - path: /grafana
+          #   pathType: Prefix
+          #   backend:
+          #     service:
+          #       name: grafana-server
+          #       port:
+          #         number: 3000
 
           - path: /
             pathType: Prefix
