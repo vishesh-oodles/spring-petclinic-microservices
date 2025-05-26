@@ -77,17 +77,22 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /eureka-service/$2
     nginx.ingress.kubernetes.io/use-regex: "true"
-    nginx.ingress.kubernetes.io/app-root: /eureka/
+    nginx.ingress.kubernetes.io/app-root: /eureka-service/
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      sub_filter_once off;
+      sub_filter 'href="/' 'href="/eureka-service/';
+      sub_filter 'src="/' 'src="/eureka-service/';
+      sub_filter '"/eureka-service/eureka/' '"/eureka-service/';
 spec:
   ingressClassName: nginx
   rules:
   - http:
       paths:
-      - path: /eureka(/|$)(.*)
+      - path: /eureka-service(/|$)(.*)
         pathType: ImplementationSpecific
         backend:
           service:
-            name: discovery-server  # Must match your service name
+            name: discovery-server
             port:
               number: 8761
 
