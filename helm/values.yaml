@@ -16,9 +16,16 @@ configServer:
 # MySQL (Bitnami)
 mysql:
   enabled: true
-  auth:
-    rootPassword: "rootpass"
-    database: "petclinic"
+  image: mysql:8.0
+  port: 3306
+  rootPassword: petclinic
+  database: petclinic
+  user: petclinic
+  userPassword: petclinic
+  accessMode: ReadWriteOnce
+  size: 1Gi
+  hostPath: /home/vishesh/petclinic/kubernetes/mysql-data
+  type: ClusterIP
 
 # Other Microservices (example for customers-service)
 customersService:
