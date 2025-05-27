@@ -6,7 +6,7 @@ global:
 # Config Server
 config:
   enabled: true
-  image: "vishesh/config-server:latest"
+  image: "visheshvishu/config-server:latest"
   port: 8888
   replicaCount: 1
   type: ClusterIP
@@ -14,8 +14,24 @@ config:
   # discovery Server
 discovery:
   enabled: true
-  image: "vishesh/discovery-server:latest"
+  image: "visheshvishu/discovery-server:latest"
   port: 8761
+  replicaCount: 1
+  type: ClusterIP
+
+  # admin Server
+admin:
+  enabled: true
+  image: "visheshvishu/admin-server:latest"
+  port: 9091
+  replicaCount: 1
+  type: ClusterIP
+
+   # api gateway
+api:
+  enabled: true
+  image: "visheshvishu/api-gateway:latest"
+  port: 8080
   replicaCount: 1
   type: ClusterIP
 
@@ -33,8 +49,26 @@ mysql:
   hostPath: /home/vishesh/petclinic/kubernetes/mysql-data
   type: ClusterIP
 
-# Other Microservices (example for customers-service)
-customersService:
-  image: "my-registry/customers-service:latest"
-  port: 8080
-  configServerUrl: "http://config-server:8888"
+  # customers service
+customers:
+  enabled: true
+  image: "visheshvishu/customers-service:latest"
+  port: 8081
+  replicaCount: 1
+  type: ClusterIP
+
+  # visits service
+visits:
+  enabled: true
+  image: "visheshvishu/visits-service:latest"
+  port: 8082
+  replicaCount: 1
+  type: ClusterIP
+
+    # vets service
+vets:
+  enabled: true
+  image: "visheshvishu/vets-service:latest"
+  port: 8083
+  replicaCount: 1
+  type: ClusterIP
