@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-server
+  labels:
+    app: admin-server
+spec:
+  replicas: {{ .Values.admin.replicaCount }}
+  selector:
+    matchLabels:
+      app: admin-server
+  template:
+    metadata:
+      labels:
+        app: admin-server
+    spec:
+      containers:
+      - name: admin-server
+        image: {{ .Values.admin.image }} 
+        ports:
+        - containerPort: {{ .Values.admin.port }}
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: admin-server
+spec:
+  selector:
+    app: admin-server
+  ports:
+    - protocol: TCP
+      port: {{ .Values.admin.port }}
+      targetPort: {{ .Values.admin.port }}
+  type: {{ .Values.admin.type }}
