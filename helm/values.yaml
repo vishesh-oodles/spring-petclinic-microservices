@@ -1,0 +1,27 @@
+# Global settings
+global:
+  imagePullPolicy: IfNotPresent
+  env: prod
+
+# Config Server
+configServer:
+  enabled: true
+  image: "my-registry/config-server:latest"
+  port: 8888
+  resources:
+    requests:
+      memory: "512Mi"
+      cpu: "500m"
+
+# MySQL (Bitnami)
+mysql:
+  enabled: true
+  auth:
+    rootPassword: "rootpass"
+    database: "petclinic"
+
+# Other Microservices (example for customers-service)
+customersService:
+  image: "my-registry/customers-service:latest"
+  port: 8080
+  configServerUrl: "http://config-server:8888"
