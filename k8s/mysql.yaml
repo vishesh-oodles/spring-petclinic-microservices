@@ -82,7 +82,7 @@ spec:
   accessModes:
     - ReadWriteOnce
   hostPath:
-    path: "/home/vishesh/petclinic/kubernetes/mysql-data"
+    path: "/home/vishesh/petclinic/kubernetes/mysql-data-stateful"
 
 ---
 apiVersion: v1
