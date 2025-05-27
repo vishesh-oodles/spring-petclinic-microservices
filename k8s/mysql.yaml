@@ -88,7 +88,7 @@ spec:
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
-  name: mysql-pvc
+  name: mysql-pvc1
 spec:
   accessModes:
     - ReadWriteOnce
@@ -132,7 +132,7 @@ spec:
       volumes:
         - name: mysql-storage
           persistentVolumeClaim:
-            claimName: mysql-pvc
+            claimName: mysql-pvc1
 
 ---
 apiVersion: v1
