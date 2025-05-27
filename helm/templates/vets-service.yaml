@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vets-service
+  labels:
+    app: vets-service
+spec:
+  replicas: {{ .Values.vets.replicaCount }}
+  selector:
+    matchLabels:
+      app: vets-service
+  template:
+    metadata:
+      labels:
+        app: vets-service
+    spec:
+      containers:
+      - name: vets-service
+        image: {{ .Values.vets.image }}
+        ports:
+        - containerPort: {{ .Values.vets.port }}
+        # env:
+        # - name: CONFIG_SERVER_URL
+        #   value: http://config-server:8888
+        # - name: SPRING_PROFILES_ACTIVE
+        #   value: docker,mysql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vets-service
+spec:
+  selector:
+    app: vets-service
+  ports:
+  - protocol: TCP
+    port: {{ .Values.vets.port }}
+    targetPort: {{ .Values.vets.port }}
+  type: {{ .Values.vets.type }}
