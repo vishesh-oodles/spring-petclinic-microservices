@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: visits-service
+  labels:
+    app: visits-service
+spec:
+  replicas: {{ .Values.visits.replicaCount }}
+  selector:
+    matchLabels:
+      app: visits-service
+  template:
+    metadata:
+      labels:
+        app: visits-service
+    spec:
+      containers:
+      - name: visits-service
+        image: {{ .Values.visits.image }}
+        ports:
+        - containerPort: {{ .Values.visits.port }}
+        # env:
+        # - name: CONFIG_SERVER_URL
+        #   value: http://config-server:8888
+        # - name: SPRING_PROFILES_ACTIVE
+        #   value: docker,mysql
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: visits-service
+spec:
+  selector:
+    app: visits-service
+  ports:
+  - protocol: TCP
+    port: {{ .Values.visits.port }}
+    targetPort: {{ .Values.visits.port }}
+  type: {{ .Values.visits.type }}
