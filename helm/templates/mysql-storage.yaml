@@ -6,7 +6,6 @@ metadata:
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade  # Ensures this deploys first
     "helm.sh/hook-weight": "-7"  # Lower weights run earlier
-    "helm.sh/hook-delete-policy": before-hook-creation
 spec:
   capacity:
     storage: {{ .Values.mysql.size }}
@@ -23,7 +22,6 @@ metadata:
   annotations:
     "helm.sh/hook": pre-install,pre-upgrade  # Ensures this deploys first
     "helm.sh/hook-weight": "-6"  # Lower weights run earlier
-    "helm.sh/hook-delete-policy": before-hook-creation
   labels:
     app: mysql
 spec:
