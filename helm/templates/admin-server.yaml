@@ -19,6 +19,10 @@ spec:
         image: {{ .Values.admin.image }} 
         ports:
         - containerPort: {{ .Values.admin.port }}
+      initContainers:
+      - name: wait-for-config
+        image: busybox
+        command: ['sh', '-c', 'until nc -z config-server 8888; do echo "Waiting..."; sleep 5; done']
 
 ---
 apiVersion: v1
