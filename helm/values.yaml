@@ -36,12 +36,28 @@ api:
   type: ClusterIP
 
    # tracing server
-api:
+tracing:
   enabled: true
   image: "openzipkin/zipkin"
   port: 9411
   replicaCount: 1
   type: ClusterIP
+
+     # prometheus server
+prometheus:
+  enabled: true
+  image: "visheshvishu/prometheus-server:latest"
+  port: 9090
+  replicaCount: 1
+  type: ClusterIP
+
+grafana:
+  enabled: true
+  image: "visheshvishu/grafana-server:latest"
+  port: 3000
+  nodePort: 30001
+  replicaCount: 1
+  type: NodePort
 
 # mysql
 mysql:
