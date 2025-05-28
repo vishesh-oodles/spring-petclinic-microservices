@@ -1,3 +1,37 @@
+# PersistentVolume
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mysql-pv
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade  # Ensures this deploys first
+    "helm.sh/hook-weight": "-7"  # Lower weights run earlier
+spec:
+  capacity:
+    storage: {{ .Values.mysql.size }}
+  accessModes:
+    - {{ .Values.mysql.accessMode }}
+  hostPath:
+    path: "{{ .Values.mysql.hostPath }}"
+---
+# PersistentVolumeClaim
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade  # Ensures this deploys first
+    "helm.sh/hook-weight": "-6"  # Lower weights run earlier
+  labels:
+    app: mysql
+spec:
+  accessModes:
+    - {{ .Values.mysql.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.mysql.size }}
+
+---
 # Deployment
 apiVersion: apps/v1
 kind: StatefulSet
