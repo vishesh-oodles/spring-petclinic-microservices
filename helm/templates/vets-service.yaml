@@ -19,11 +19,10 @@ spec:
         image: {{ .Values.vets.image }}
         ports:
         - containerPort: {{ .Values.vets.port }}
-        # env:
-        # - name: CONFIG_SERVER_URL
-        #   value: http://config-server:8888
-        # - name: SPRING_PROFILES_ACTIVE
-        #   value: docker,mysql
+      initContainers:
+      - name: wait-for-api
+        image: busybox
+        command: ['sh', '-c', 'until nc -z api-gateway 8080; do echo "Waiting..."; sleep 5; done']
 ---
 apiVersion: v1
 kind: Service
