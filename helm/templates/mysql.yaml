@@ -30,6 +30,9 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: mysql
+  annotations:
+    "helm.sh/hook": pre-install,pre-upgrade  # Ensures this deploys first
+    "helm.sh/hook-weight": "-5"  # Lower weights run earlier
 spec:
   replicas: 1
   selector:
