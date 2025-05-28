@@ -5,7 +5,7 @@ metadata:
   labels:
     app: tracing-server
 spec:
-  replicas: 1{{ .Values.tracing.replicaCount }}
+  replicas: {{ .Values.tracing.replicaCount }}
   selector:
     matchLabels:
       app: tracing-server
