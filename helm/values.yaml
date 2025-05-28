@@ -35,6 +35,14 @@ api:
   replicaCount: 1
   type: ClusterIP
 
+   # tracing server
+api:
+  enabled: true
+  image: "openzipkin/zipkin"
+  port: 9411
+  replicaCount: 1
+  type: ClusterIP
+
 # mysql
 mysql:
   enabled: true
