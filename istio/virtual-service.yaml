@@ -44,3 +44,13 @@ spec:
             host: api-gateway
             port:
               number: 8080
+
+    - match:
+        - uri:
+            prefix: /grafana
+      route:
+        - destination:
+            host: grafana-server
+            port:
+              number: 3000
+
