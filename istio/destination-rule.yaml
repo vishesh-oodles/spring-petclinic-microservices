@@ -7,19 +7,20 @@ spec:
   host: "*.petclinic.svc.cluster.local"
   trafficPolicy:
     tls:
-      mode: DISABLE  # Disables mutual TLS for internal services
+      mode: DISABLE  # Disables mutual TLS
     loadBalancer:
       simple: ROUND_ROBIN
     connectionPool:
+      tcp: 
+        maxConnections: 100
       http:
         http1MaxPendingRequests: 100
         maxRequestsPerConnection: 100
-        # Add these to preserve auth headers
-        useClientProtocol: true  
-        headers:
-          request:
-            add:
-              Connection: keep-alive
+    # Moved headers to the correct location
+    headers:
+      request:
+        add:
+          Connection: keep-alive
     outlierDetection:
       consecutiveErrors: 5
       interval: 10s
