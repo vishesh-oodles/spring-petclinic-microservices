@@ -32,7 +32,7 @@ spec:
             prefix: /eureka
       route:
         - destination:
-            host: discovery-server
+            host: discovery-server.petclinic.svc.cluster.local
             port:
               number: 8761
 
