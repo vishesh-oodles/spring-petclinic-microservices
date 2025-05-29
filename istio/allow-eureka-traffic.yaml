@@ -16,7 +16,7 @@ spec:
       to:
         - operation:
             methods: ["GET"]
-            paths: ["/eureka/*"]
+            paths: ["/eureka", "/eureka/*"]
     # Allow GET, PUT, POST from petclinic namespace pods (Eureka clients)
     - from:
         - source:
@@ -24,12 +24,12 @@ spec:
       to:
         - operation:
             methods: ["GET", "PUT", "POST"]
-            paths: ["/eureka/*"]
-    # **Add this rule: Allow GET from discovery server pod itself**
+            paths: ["/eureka", "/eureka/*"]
+    # Allow discovery-server to talk to itself
     - from:
         - source:
-            principals: ["cluster.local/ns/petclinic/sa/discovery-server"]  # Adjust if you use a different service account
+            principals: ["cluster.local/ns/petclinic/sa/discovery-server"]
       to:
         - operation:
             methods: ["GET"]
-            paths: ["/eureka/*"]
+            paths: ["/eureka", "/eureka/*"]
