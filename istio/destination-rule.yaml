@@ -16,11 +16,6 @@ spec:
       http:
         http1MaxPendingRequests: 100
         maxRequestsPerConnection: 100
-    # Moved headers to the correct location
-    headers:
-      request:
-        add:
-          Connection: keep-alive
     outlierDetection:
       consecutiveErrors: 5
       interval: 10s
