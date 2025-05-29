@@ -1,0 +1,46 @@
+apiVersion: networking.istio.io/v1beta1
+kind: VirtualService
+metadata:
+  name: petclinic-virtualservice
+  namespace: petclinic
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - petclinic-gateway
+  http:
+    - match:
+        - uri:
+            prefix: /zipkin
+      route:
+        - destination:
+            host: tracing-server
+            port:
+              number: 9411
+
+    - match:
+        - uri:
+            prefix: /admin
+      route:
+        - destination:
+            host: admin-server
+            port:
+              number: 9091
+
+    - match:
+        - uri:
+            prefix: /eureka
+      route:
+        - destination:
+            host: discovery-server
+            port:
+              number: 8761
+
+    - match:
+        - uri:
+            prefix: /
+      route:
+        - destination:
+            host: api-gateway
+            port:
+              number: 8080
