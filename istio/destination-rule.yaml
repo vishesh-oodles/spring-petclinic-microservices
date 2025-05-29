@@ -1,0 +1,19 @@
+apiVersion: networking.istio.io/v1beta1
+kind: DestinationRule
+metadata:
+  name: petclinic-destinationrule
+  namespace: petclinic
+spec:
+  host: "*.petclinic.svc.cluster.local"   # or specific service e.g. api-gateway.petclinic.svc.cluster.local
+  trafficPolicy:
+    loadBalancer:
+      simple: ROUND_ROBIN
+    connectionPool:
+      http:
+        http1MaxPendingRequests: 100
+        maxRequestsPerConnection: 100
+    outlierDetection:
+      consecutiveErrors: 5
+      interval: 10s
+      baseEjectionTime: 30s
+      maxEjectionPercent: 50
