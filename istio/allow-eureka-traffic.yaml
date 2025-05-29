@@ -7,20 +7,29 @@ spec:
   action: ALLOW
   selector:
     matchLabels:
-      app: discovery-server  # The Eureka server pod labels
+      app: discovery-server
   rules:
-  - from:
-    - source:
-        namespaces: ["petclinic"]      # client services namespace
-    to:
-    - operation:
-        methods: ["GET", "PUT", "POST"]  # Allow methods for Eureka registration and fetching
-        paths: ["/eureka/*"]
-  - from:
-    - source:
-        namespaces: ["istio-system"]  # from Istio ingress gateway as well
-    to:
-    - operation:
-        methods: ["GET"]
-        paths: ["/eureka/*"]
-
+    # Allow GET from istio ingress gateway for dashboard access
+    - from:
+        - source:
+            namespaces: ["istio-system"]
+      to:
+        - operation:
+            methods: ["GET"]
+            paths: ["/eureka/*"]
+    # Allow GET, PUT, POST from petclinic namespace pods (Eureka clients)
+    - from:
+        - source:
+            namespaces: ["petclinic"]
+      to:
+        - operation:
+            methods: ["GET", "PUT", "POST"]
+            paths: ["/eureka/*"]
+    # **Add this rule: Allow GET from discovery server pod itself**
+    - from:
+        - source:
+            principals: ["cluster.local/ns/petclinic/sa/discovery-server"]  # Adjust if you use a different service account
+      to:
+        - operation:
+            methods: ["GET"]
+            paths: ["/eureka/*"]
