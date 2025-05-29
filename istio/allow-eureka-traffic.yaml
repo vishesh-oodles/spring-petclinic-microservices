@@ -33,4 +33,3 @@ spec:
         - operation:
             methods: ["GET"]
             paths: ["/eureka", "/eureka/*"]
-this is my current file
