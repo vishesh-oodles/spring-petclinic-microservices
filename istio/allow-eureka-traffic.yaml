@@ -17,7 +17,7 @@ spec:
       to:
         - operation:
             methods: ["GET"]
-            paths: ["/", "/eureka", "/eureka/*", "/eureka/css/*", "/eureka/js/*"]
+            paths: ["/", "/eureka/eureka/*", "/eureka/*", "/eureka/css/*", "/eureka/js/*"]
 
     # 2. Allow Eureka clients to register/heartbeat
     - from:
