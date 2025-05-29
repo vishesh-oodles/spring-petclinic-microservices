@@ -7,29 +7,31 @@ spec:
   action: ALLOW
   selector:
     matchLabels:
-      app: discovery-server
+      app: discovery-server  # Targets Eureka server pods
   rules:
-    # Allow GET from istio ingress gateway for dashboard access
+    # 1. Allow Ingress Gateway (dashboard access)
     - from:
         - source:
-            namespaces: ["istio-system"]
+            principals: ["cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account"] 
       to:
         - operation:
             methods: ["GET"]
-            paths: ["/eureka", "/eureka/*"]
-    # Allow GET, PUT, POST from petclinic namespace pods (Eureka clients)
+            paths: ["/", "/eureka*", "/eureka/css/*", "/eureka/js/*"]  # Added web assets
+
+    # 2. Allow service registration/heartbeats (critical fix!)
     - from:
         - source:
             namespaces: ["petclinic"]
       to:
         - operation:
-            methods: ["GET", "PUT", "POST"]
-            paths: ["/eureka", "/eureka/*"]
-    # Allow discovery-server to talk to itself
+            methods: ["GET", "POST", "PUT", "DELETE"]
+            paths: ["/eureka/apps*"]  # Fixed path pattern (no duplicate /eureka)
+
+    # 3. Allow Eureka self-communication (optional)
     - from:
         - source:
             principals: ["cluster.local/ns/petclinic/sa/discovery-server"]
       to:
         - operation:
             methods: ["GET"]
-            paths: ["/eureka", "/eureka/*"]
+            paths: ["/eureka/apps*"]
