@@ -9,29 +9,28 @@ spec:
     matchLabels:
       app: discovery-server
   rules:
-    # 1. Allow GET from Istio Ingress Gateway for Eureka dashboard
+    # Allow GET from istio ingress gateway for dashboard access
     - from:
         - source:
-            principals: ["cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account"]
+            namespaces: ["istio-system"]
       to:
         - operation:
             methods: ["GET"]
-            paths: ["/", "/eureka", "/eureka/", "/eureka/*", "/eureka/css/*", "/eureka/js/*"]
-
-    # 2. Allow Eureka clients in petclinic namespace to register, heartbeat
+            paths: ["/eureka", "/eureka/*"]
+    # Allow GET, PUT, POST from petclinic namespace pods (Eureka clients)
     - from:
         - source:
             namespaces: ["petclinic"]
       to:
         - operation:
-            methods: ["GET", "POST", "PUT", "DELETE"]
-            paths: ["/eureka/apps", "/eureka/apps/*"]
-
-    # 3. Allow Eureka to talk to itself
+            methods: ["GET", "PUT", "POST"]
+            paths: ["/eureka", "/eureka/*"]
+    # Allow discovery-server to talk to itself
     - from:
         - source:
             principals: ["cluster.local/ns/petclinic/sa/discovery-server"]
       to:
         - operation:
             methods: ["GET"]
-            paths: ["/eureka/apps", "/eureka/apps/*"]
+            paths: ["/eureka", "/eureka/*"]
+this is my current file
