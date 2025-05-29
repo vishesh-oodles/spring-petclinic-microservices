@@ -7,9 +7,20 @@ spec:
   action: ALLOW
   selector:
     matchLabels:
-      app: discovery-server
+      app: discovery-server  # The Eureka server pod labels
   rules:
-    - from:
-        - source:
-            namespaces: ["istio-system"]  # traffic from Ingress Gateway
+  - from:
+    - source:
+        namespaces: ["petclinic"]      # client services namespace
+    to:
+    - operation:
+        methods: ["GET", "PUT", "POST"]  # Allow methods for Eureka registration and fetching
+        paths: ["/eureka/*"]
+  - from:
+    - source:
+        namespaces: ["istio-system"]  # from Istio ingress gateway as well
+    to:
+    - operation:
+        methods: ["GET"]
+        paths: ["/eureka/*"]
 
