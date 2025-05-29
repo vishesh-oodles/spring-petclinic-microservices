@@ -2,7 +2,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: DestinationRule
 metadata:
   name: discovery-server-dr
-  namespace: petclinet
+  namespace: petclinic
 spec:
   host: discovery-server.petclinic.svc.cluster.local
   trafficPolicy:
