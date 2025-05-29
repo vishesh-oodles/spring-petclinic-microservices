@@ -4,14 +4,22 @@ metadata:
   name: petclinic-destinationrule
   namespace: petclinic
 spec:
-  host: "*.petclinic.svc.cluster.local"   # or specific service e.g. api-gateway.petclinic.svc.cluster.local
+  host: "*.petclinic.svc.cluster.local"
   trafficPolicy:
+    tls:
+      mode: DISABLE  # Disables mutual TLS for internal services
     loadBalancer:
       simple: ROUND_ROBIN
     connectionPool:
       http:
         http1MaxPendingRequests: 100
         maxRequestsPerConnection: 100
+        # Add these to preserve auth headers
+        useClientProtocol: true  
+        headers:
+          request:
+            add:
+              Connection: keep-alive
     outlierDetection:
       consecutiveErrors: 5
       interval: 10s
