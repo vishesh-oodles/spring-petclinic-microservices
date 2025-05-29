@@ -9,27 +9,20 @@ spec:
     matchLabels:
       app: discovery-server
   rules:
-    # Allow GET from istio ingress gateway for dashboard access
+    # Allow ALL valid Eureka API patterns (including incorrect /eureka/eureka/)
+    - to:
+        - operation:
+            methods: ["GET", "POST", "PUT", "DELETE"]
+            paths: 
+              - "/eureka/apps*"
+              - "/eureka/eureka/apps*"  # Temporary allowance for misconfigured clients
+              - "/eureka/*"             # Fallback
+
+    # Allow dashboard access
     - from:
         - source:
-            namespaces: ["istio-system"]
+            principals: ["cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account"]
       to:
         - operation:
             methods: ["GET"]
-            paths: ["/eureka", "/eureka/*"]
-    # Allow GET, PUT, POST from petclinic namespace pods (Eureka clients)
-    - from:
-        - source:
-            namespaces: ["petclinic"]
-      to:
-        - operation:
-            methods: ["GET", "PUT", "POST"]
-            paths: ["/eureka", "/eureka/*"]
-    # Allow discovery-server to talk to itself
-    - from:
-        - source:
-            principals: ["cluster.local/ns/petclinic/sa/discovery-server"]
-      to:
-        - operation:
-            methods: ["GET"]
-            paths: ["/eureka", "/eureka/*"]
+            paths: ["/", "/eureka*", "/*.css", "/*.js"]
