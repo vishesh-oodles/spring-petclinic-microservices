@@ -4,10 +4,12 @@ metadata:
   name: allow-eureka
   namespace: petclinic
 spec:
+  action: ALLOW
   selector:
     matchLabels:
       app: discovery-server
   rules:
-  - from:
-    - source:
-        namespaces: ["petclinic"]
+    - from:
+        - source:
+            namespaces: ["istio-system"]  # traffic from Ingress Gateway
+
