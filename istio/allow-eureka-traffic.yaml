@@ -28,7 +28,7 @@ spec:
         - operation:
             ports: ["8761"]
             methods: ["GET", "POST", "PUT", "DELETE"]
-            paths: ["/eureka/*", /eureka/eureka/*", , /eureka/eureka/app/*", "/actuator/*", "/"]
+            paths: ["/eureka/*", "/eureka/eureka/*", "/eureka/eureka/app/*", "/actuator/*", "/"]
 
 
 
