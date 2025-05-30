@@ -23,9 +23,10 @@ spec:
   rules:
     - from:
         - source:
-            namespaces: ["petclinic"]
+            principals: ["*"] # Accept requests from all authenticated services
       to:
         - operation:
             ports: ["8761"]
+
 
 
