@@ -1,3 +1,15 @@
+# apiVersion: security.istio.io/v1beta1
+# kind: AuthorizationPolicy
+# metadata:
+#   name: allow-all-to-eureka
+#   namespace: petclinic
+# spec:
+#   selector:
+#     matchLabels:
+#       app: discovery-server
+#   rules:
+#     - {}
+# istio/authorization/allow-admin-to-eureka.yaml
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
@@ -7,8 +19,14 @@ spec:
   selector:
     matchLabels:
       app: discovery-server
+  action: ALLOW
   rules:
-    - {}
+    - from:
+        - source:
+            principals: ["cluster.local/ns/petclinic/sa/default"]
+      to:
+        - operation:
+            ports: ["8761"]
 
 
 
