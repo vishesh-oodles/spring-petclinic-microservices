@@ -8,11 +8,4 @@ spec:
     matchLabels:
       app: discovery-server
   rules:
-    - from:
-        - source:
-            principals: ["cluster.local/ns/petclinic/sa/default"]
-      to:
-        - operation:
-            ports: ["8761"]
-
-
+    - {}
