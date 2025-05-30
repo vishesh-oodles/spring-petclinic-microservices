@@ -3,5 +3,8 @@ kind: AuthorizationPolicy
 metadata:
   name: allow-all-to-eureka
   namespace: petclinic
-spec: {}
+  selector:
+    matchLabels:
+      app: discovery-server
+  rules: {}
 
