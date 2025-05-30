@@ -1,11 +1,22 @@
+# apiVersion: security.istio.io/v1beta1
+# kind: AuthorizationPolicy
+# metadata:
+#   name: allow-all-to-eureka
+#   namespace: petclinic
+# spec:
+#   selector:
+#     matchLabels:
+#       app: discovery-server
+#   rules:
+#     - {}
 apiVersion: security.istio.io/v1beta1
 kind: AuthorizationPolicy
 metadata:
   name: allow-all-to-eureka
   namespace: petclinic
 spec:
-  selector:
-    matchLabels:
-      app: discovery-server
   rules:
-    - {}
+    - from:
+        - source:
+            namespaces: ["petclinic"]
+
