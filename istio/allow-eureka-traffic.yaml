@@ -13,8 +13,8 @@ spec:
             principals:
               - "cluster.local/ns/petclinic/sa/api-gateway"
               - "cluster.local/ns/petclinic/sa/customers-service"
-              - "cluster.local/ns/petclinic/sa/order-service"
-              - "cluster.local/ns/petclinic/sa/admin-server"
+              - "cluster.local/ns/petclinic/sa/vets-service"
+              - "cluster.local/ns/petclinic/sa/visits-server"
               - "cluster.local/ns/istio-system/sa/istio-ingressgateway-service-account"
       to:
         - operation:
