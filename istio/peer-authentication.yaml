@@ -1,12 +1,8 @@
 apiVersion: security.istio.io/v1beta1
 kind: PeerAuthentication
 metadata:
-  name: allow-eureka-http
+  name: default
   namespace: petclinic
 spec:
-  selector:
-    matchLabels:
-      app: discovery-server  # Target Eureka Server
-  portLevelMtls:
-    8761:
-      mode: DISABLE  # Allow HTTP on port 8761
+  mtls:
+    mode: PERMISSIVE
