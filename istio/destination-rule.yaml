@@ -7,4 +7,4 @@ spec:
   host: discovery-server.petclinic.svc.cluster.local
   trafficPolicy:
     tls:
-      mode: ISTIO_MUTUAL
+      mode: DISABLE
