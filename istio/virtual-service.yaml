@@ -45,3 +45,12 @@ spec:
             port:
               number: 8080
 
+    - match:
+        - uri:
+            prefix: /api/vet/
+      route:
+        - destination:
+            host: vets-service
+            port:
+              number: 8083
+
