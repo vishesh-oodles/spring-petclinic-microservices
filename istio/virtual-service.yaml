@@ -32,7 +32,7 @@ spec:
             prefix: /eureka
       route:
         - destination:
-            host: discovery-server.petclinic.svc.cluster.local
+            host: discovery-server
             port:
               number: 8761
 
@@ -44,13 +44,3 @@ spec:
             host: api-gateway
             port:
               number: 8080
-
-    - match:
-        - uri:
-            prefix: /api/vet/
-      route:
-        - destination:
-            host: vets-service
-            port:
-              number: 8083
-
